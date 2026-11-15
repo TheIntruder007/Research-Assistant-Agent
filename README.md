@@ -1,8 +1,8 @@
-# ResearchGenie
+# Research Assistant Agent
 
 **Agentic AI (26ECAC401) · Team 7 · KLE Technological University · CSE (AI)**
 
-A local first agentic system that turns a research question into an evidence grounded, citation verified paper draft, on a laptop GPU by default, with no data leaving the machine.
+Built under the name ResearchGenie, this is a local first agentic system that turns a research question into an evidence grounded, citation verified paper draft, on a laptop GPU by default, with no data leaving the machine.
 
 ---
 
@@ -10,14 +10,14 @@ A local first agentic system that turns a research question into an evidence gro
 
 | Team name / number | Team 7 |
 |---|---|
-| Division | *[fill in]* |
+| Division | B |
 
 | # | Name | USN | Division |
 |---|------|-----|----------|
-| 1 | Ayush Kabbur | 01FE23BCI019 | *[fill in]* |
-| 2 | Md Sadia | 01FE23BCI057 | *[fill in]* |
-| 3 | Owais Aminbhavi | 01FE23BCI378 | *[fill in]* |
-| 4 | Md Abdul Raqeeb | 01FE23BCI033 | *[fill in]* |
+| 1 | Ayush Kabbur | 01FE23BCI019 | B |
+| 2 | Owais Aminbhavi | 01FE23BCI378 | B |
+| 3 | Mohammed Sadiq Lakkundi | 01FE23BCI057 | B |
+| 4 | Md Abdul Raqeeb | 01FE23BCI033 | B |
 
 ---
 
