@@ -1,0 +1,8 @@
+# ResearchGenie runs from its own pyproject.toml (editable install).
+# From Course-Project/code:
+#
+#   pip install -e .
+#   researchgenie config      # one-time: local model / optional free API keys
+#
+# Labs 1–14 in Assignments/ import directly from Course-Project/code, so that
+# install must happen before running any lab's experiment script.
