@@ -864,6 +864,8 @@ pytest -v tests/shared/test_library.py tests/shared/test_response_cache.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 Every library and cache unit test passes above, including the explicit test that an off topic seeded paper is rejected by the relevance gate. On a related live run recorded in `Course-Project/docs/evidence/live-pass/LIVE_PASS.md`, memory surfaced 10 past papers, 1 reused excerpt and 9 seeded, and Discovery time was higher, not lower, because seeding widens the corpus to screen rather than skipping work.
 
 ## Why this is the real evidence, not a toy

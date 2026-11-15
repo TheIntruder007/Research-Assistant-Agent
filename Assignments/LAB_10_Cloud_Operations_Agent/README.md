@@ -615,6 +615,8 @@ pytest -v tests/orchestrator/test_doctor.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 All 12 rules above pass against the real Doctor implementation. Proven live and end to end, not only in unit tests: the first live attempt surfaced a genuine gap, a broken draft was not being diagnosed because Ollama was down while the run had still completed. That was fixed live with a new rule, ollama_stopped_mid_writing. Full recovery was then proven for real: Ollama was killed deliberately mid run, the Doctor caught it, fixed it, and the run resumed to a completed draft. Full record in `Course-Project/docs/evidence/live-pass/LIVE_PASS.md`.
 
 ## Why this is the real evidence, not a toy

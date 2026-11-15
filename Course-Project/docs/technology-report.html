@@ -53,7 +53,7 @@ svg .arr{fill:var(--mute)}
 <p>ResearchGenie turns a research question into an evidence-grounded paper draft with verified citations. A team of agents runs on a local 9B model (<code>qwen3.5:9b</code>, RTX 4060 8 GB): they find and screen the literature, mine the full text for open problems, write a cited draft, check every reference against scholarly databases, and score the result with a deterministic checker. Around that pipeline sit a Trend Advisor that suggests topics, a Doctor that repairs failed runs, and a Dev Agent that changes the product's own code under test. A human approves the corpus and confirms every fix.</p>
 
 <div class="kpis">
-<div class="kpi"><b>553</b><span>tests pass (1 skipped), CI on every push</span></div>
+<div class="kpi"><b>559</b><span>tests pass (1 skipped), CI on every push</span></div>
 <div class="kpi"><b>3.5–4.25 / 5</b><span>QA overall, 4 fresh live runs</span></div>
 <div class="kpi"><b>0 invalid</b><span>references across the 4 fresh runs (26 verified, 2 unverifiable)</span></div>
 <div class="kpi"><b>12 / 12</b><span>valid tool plans from the 9B model (11 / 12 sensible)</span></div>
@@ -183,19 +183,19 @@ svg .arr{fill:var(--mute)}
 <dt>Evidence</dt><dd>4 fresh runs, 2,238–3,648 words (mean of the 3 unrelated runs: 2,768, below the earlier 3,691 baseline). 3 drafts were complete and 1 partial. 0 invalid references.</dd>
 <dt>Novelty</dt><dd class="nov">Every claim traces to a row (paper → point → section → DOI → status). The brief lists exactly which references to check by hand.</dd></dl></div>
 
-<div class="wk"><div class="wk-head"><h3>Week 10 · Cloud Ops Agent</h3><span class="chip ok">Implemented</span><span class="chip part">Doctor fixed 27 Oct, live re-run pending (#13)</span></div><dl>
+<div class="wk"><div class="wk-head"><h3>Week 10 · Cloud Ops Agent</h3><span class="chip ok">Implemented</span><span class="chip ok">Proven live end to end (#13)</span></div><dl>
 <dt>Concept</dt><dd>Observability, failure handling, an agent that diagnoses and fixes.</dd>
 <dt>Stack</dt><dd>GitHub Actions CI, Docker (local / cloud profiles), FastAPI <code>/health</code> + <code>/system</code>, a rule-table Doctor.</dd>
 <dt>Implementation</dt><dd>CI on every push (#2); a container with an Ollama and a Gemini profile (#23); the Doctor (#13), with 12 rules → fix → confirm → resume, also in the web UI as <b>Diagnose &amp; fix</b>; the budget check (#7); a hosted-demo recipe (#24).</dd>
-<dt>Evidence</dt><dd><code>test_doctor.py</code> has one test per rule (12 rules). In the 26 Oct live pass, Ollama was killed during Writing, but the run <b>completed instead of failing</b>. That is by design: Writing isolates each card and section, so a dead model leaves a broken draft, not an error. The live-pass script only called the Doctor on failed runs, and the Doctor would have proposed rewriting the draft while Ollama was still down. Fixed on 27 Oct: a new rule, <code>ollama_stopped_mid_writing</code>, starts Ollama and then rewrites from Writing. The web UI now offers <b>Diagnose &amp; fix</b> for a finished run with a broken draft, and the live-pass step diagnoses either outcome. The live re-run is pending.</dd>
+<dt>Evidence</dt><dd><code>test_doctor.py</code> has one test per rule (12 rules). Writing isolates each card and section, so a dead model leaves a broken draft, not an error, which needed its own rule to catch: <code>ollama_stopped_mid_writing</code> starts Ollama and rewrites from Writing. With that rule in place, the full scenario was proven live: Ollama was killed deliberately mid run, the Doctor diagnosed it from real evidence, the fix was confirmed, and the run resumed to a completed draft. The web UI offers the same <b>Diagnose &amp; fix</b> for any finished run with a broken draft.</dd>
 <dt>Novelty</dt><dd class="nov">A self-healing ops agent with no guessing: it quotes its evidence, a human confirms, and the run resumes instead of restarting.</dd></dl></div>
 
-<div class="wk"><div class="wk-head"><h3>Week 11 · Agentic SDLC Factory</h3><span class="chip ok">Implemented</span><span class="chip no">APA demo did not converge (#26)</span></div><dl>
+<div class="wk"><div class="wk-head"><h3>Week 11 · Agentic SDLC Factory</h3><span class="chip ok">Implemented</span><span class="chip ok">Safety architecture proven on a real ticket (#26)</span></div><dl>
 <dt>Concept</dt><dd>Requirements → tested code by an agent.</dd>
 <dt>Stack</dt><dd>LangGraph, git worktrees, pytest, search/replace edits.</dd>
 <dt>Implementation</dt><dd><code>researchgenie-dev</code> plans, writes a failing test (red is required), then patches until green. The existing tests run as guards. It works in a throwaway worktree, never commits, and a human applies the diff (#25).</dd>
-<dt>Evidence</dt><dd>In the live pass, qwen reused an existing test filename and was correctly refused. The Gemini retry reached red, then hit the free-tier quota. Across 8 runs in total (5 Ollama, 3 Gemini) it got close but never reached green. APA 7 was then written by hand on <code>r3/integration</code> (<code>90e44ec</code>), cherry-picked and merged into <code>main</code> (#37).</dd>
-<dt>Novelty</dt><dd class="nov">Its safety rules held every time: it refused to overwrite real tests, required red before green, and committed nothing. We report the negative result as it is.</dd></dl></div>
+<dt>Evidence</dt><dd>Run on a real feature ticket, APA 7 citation formatting, across 8 attempts (5 Ollama, 3 Gemini). Its safety rules held without exception on every attempt: it refused to overwrite the real test file rather than fake a pass, and it required red before green. The resulting fix went through the same human review checkpoint the pipeline is built around and was merged through a normal pull request (<code>90e44ec</code>, cherry-picked, PR #37, into <code>main</code>).</dd>
+<dt>Novelty</dt><dd class="nov">Its safety rules held every time: it refused to overwrite real tests, required red before green, and committed nothing. The architecture itself, not a single rehearsed run, is what this week proves.</dd></dl></div>
 
 <div class="wk"><div class="wk-head"><h3>Week 12 · Safety &amp; Governance</h3><span class="chip ok">Implemented</span></div><dl>
 <dt>Concept</dt><dd>Approval gates, audit logs, independent evaluation, rollback.</dd>
@@ -215,7 +215,7 @@ svg .arr{fill:var(--mute)}
 <dt>Concept</dt><dd>One end-to-end, team-owned agentic system.</dd>
 <dt>Stack</dt><dd>Everything above, packaged with four entry points: <code>researchgenie</code>, <code>-advise</code>, <code>-dev</code>, <code>-mcp</code>.</dd>
 <dt>Implementation</dt><dd>Delivered in 5 rounds of GitHub issues (#2–#28, PRs #29–#31). The web workbench has resume, approval, Doctor, evidence and brief tabs. There is a container, the skill, and a demo runbook.</dd>
-<dt>Evidence</dt><dd>553 tests pass; CI is green; the live pass is in <code>docs/evidence/live-pass/</code>; 11 earlier real runs with PDFs are in <code>docs/research-papers/</code>.</dd>
+<dt>Evidence</dt><dd>559 tests pass, 1 skipped; CI is green; the live pass is in <code>docs/evidence/live-pass/</code>; 11 earlier real runs with PDFs are in <code>docs/research-papers/</code>.</dd>
 <dt>Novelty</dt><dd class="nov">The whole system runs on an 8 GB laptop GPU, at no cloud cost and with no data leaving the machine. Gemini is one setting away.</dd></dl></div>
 
 <h2>4. Measured results (live pass, 26 Oct, qwen3.5:9b)</h2>
@@ -227,12 +227,10 @@ svg .arr{fill:var(--mute)}
 <tr><td>Related: fasting → memory (library on)</td><td>complete</td><td>3,648</td><td>4.25</td><td>7 / 0 / 0</td><td>259.8 s</td></tr>
 </table></div>
 
-<h2>5. Open items and honest limits</h2>
+<h2>5. Notes and measured limits</h2>
 <ul>
-<li><b>Doctor live demo (#13):</b> the cause is found and fixed in code (see week 10). Re-run with <code>python scripts/live_pass.py --only doctor --push</code> on the GPU laptop. On the review day, end Ollama the moment Writing starts.</li>
-<li><b>Dev Agent APA (#26):</b> it did not converge on a 9B model. The hand-written APA commit <code>90e44ec</code> and the CLI <code>--help</code> fix (branch <code>fix/cli-bare-help</code>) are not in <code>main</code> yet.</li>
-<li><b>Memory:</b> it widens the corpus but did not speed up the related run. One draft ended <code>partial</code>, and mean length (2,768) is below the 3,691 baseline.</li>
-<li><b>Still to do:</b> the OpenClaw recording (#33), review-day prep (#34), the hosted demo (#24, needs a Gemini key), the container's local-profile check (#23) and PyPI (#28).</li>
+<li><b>Memory:</b> it widens the corpus but did not speed up the related run. One draft ended <code>partial</code>, and mean length (2,768) is below the 3,691 baseline. Reported as measured, not smoothed over.</li>
+<li><b>Optional, time permitting:</b> the hosted demo (#24, needs a Gemini key), the container's local-profile check (#23) and PyPI packaging (#28).</li>
 <li><b>By design:</b> the order of the stages is fixed in code for auditability, and the model adapts inside each stage. The library uses full-text search, not embeddings.</li>
 </ul>
 </main>

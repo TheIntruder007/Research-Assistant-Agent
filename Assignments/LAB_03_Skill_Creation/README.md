@@ -1457,6 +1457,8 @@ pytest -v tests/researchgenie/test_headless.py tests/test_agent_skill.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 Every command line documented in SKILL.md above is parsed by the real headless CLI's own argument parser inside the test. If a future change to the CLI breaks a documented command, this test fails immediately, not at a demo.
 
 ## Why this is the real evidence, not a toy

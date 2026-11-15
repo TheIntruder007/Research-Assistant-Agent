@@ -1366,6 +1366,8 @@ pytest -v tests/shared/test_scholarly_gateway.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 The gateway unit tests above pass against the real implementation, including the check that 250 DOI lookups batch into 3 Crossref requests plus 1 OpenAlex request. Separately, the spike script above was run live against the real local model for 12 research questions spanning disciplines. Real captured result, copied unedited from that run, is in `spike_output.json` in this folder: 12 of 12 valid tool plans, 11 of 12 sensible, meaning PubMed only where it belongs.
 
 ## Why this is the real evidence, not a toy

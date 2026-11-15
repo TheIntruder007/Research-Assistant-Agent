@@ -2503,6 +2503,8 @@ pytest -v tests/orchestrator/test_pipeline.py tests/orchestrator/test_api.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 The event ledger and the API tests above pass against the real orchestrator. The Telegram bot authenticated against Telegram's own servers and stayed connected for the full review session, with every inbound message, model session, and outbound reply visible live in the Telegram Sync dashboard. The Logs dashboard streamed every stage of a real pipeline run live, for direct observation rather than a static report.
 
 ## Why this is the real evidence, not a toy

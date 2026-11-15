@@ -329,6 +329,8 @@ pytest -v tests/researchgenie/test_mcp_server.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 A genuine MCP client connects over stdio and calls every tool above, including a path traversal attempt on read_run_artifact, which is refused. Separately, during this review cycle, asking Claude Desktop to list my ResearchGenie runs returned every real run on disk correctly, a real MCP tool call from a real MCP client, not a scripted answer.
 
 ## Why this is the real evidence, not a toy

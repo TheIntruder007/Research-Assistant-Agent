@@ -1803,6 +1803,8 @@ pytest -v tests/dev_agent/test_dev_agent.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 The Dev Agent graph's plan, test, patch structure, and its refusal rules, never overwrite an existing test, require red before green, pass against the real graph implementation above. Every live research run recorded in `Course-Project/docs/evidence/live-pass/` passed fully through the real 9 node writing graph, every run, not a subset.
 
 ## Why this is the real evidence, not a toy

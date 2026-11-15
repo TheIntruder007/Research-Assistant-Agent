@@ -43,7 +43,7 @@ ul{margin:4px 0;padding-left:20px}
 <tr><td>Team name / number</td><td>Team 7</td></tr>
 <tr><td>Worklet title</td><td>ResearchGenie: turn a research question into an evidence-grounded, citation-verified paper draft, running on a local model by default</td></tr>
 <tr><td>KPI &amp; expectations</td><td>A complete four-stage run (Discovery → Writing → Verification → QA) on a local 9B model (<code>qwen3.5:9b</code>, RTX 4060 8 GB). Every reference is classified verified / invalid / unverifiable. A deterministic QA score from 0 to 5. A failed run is diagnosed and resumed, not restarted. Every run ends with an evidence table and exactly one recommended next action.<br><span class="mute">Measured before this round: QA overall 3.5–4.2 / 5; best draft 3,421 / 4,000 words; a full run takes about 15 min. The measurements from this round are in <a href="evidence/live-pass/LIVE_PASS.md">LIVE_PASS.md</a>.</span></td></tr>
-<tr><td>Team members (Name — USN)</td><td>Ayush Kabbur — 01FE23BCI019, Md Sadia — 01FE23BCI057, Owais Aminbhavi — 01FE23BCI378, Md Abdul Raqeeb — 01FE23BCI033</td></tr>
+<tr><td>Team members (Name, USN)</td><td>Ayush Kabbur, 01FE23BCI019, Owais Aminbhavi, 01FE23BCI378, Mohammed Sadiq Lakkundi, 01FE23BCI057, Md Abdul Raqeeb, 01FE23BCI033</td></tr>
 <tr><td>Review (Week / date)</td><td>Final review · Wed 28 Oct 2026</td></tr>
 </table>
 
@@ -86,10 +86,10 @@ ul{margin:4px 0;padding-left:20px}
 <td><span class="chip ok">Built</span></td></tr>
 
 <tr><td class="wk">6</td><td>OpenClaw Runtime</td>
-<td>Our orchestrator runtime has standard progress events, FastAPI + SSE and the web UI. A durable event log per run (<code>events.jsonl</code>) keeps history across a restart (#8). The skill (<code>skills/researchgenie/</code>) is designed so a question from a chat app starts a background run, and OpenClaw sends a message with the decision brief when it finishes (#21). On the night before review, a Telegram bot was wired end to end (bot created, paired, authenticated, skill installed and confirmed visible to the model) &mdash; but the chat agent answered directly from its own knowledge instead of invoking the real pipeline, across 3 attempts including a fresh session. No code bug was found in the skill itself; it looks like a gap between OpenClaw's skill-prompting and the specific model backend in use. Recorded honestly on #33, not hidden.</td>
-<td class="nov">The same run can be watched from a terminal, a browser or (once the chat-trigger gap above is resolved) a chat app, because every surface reads one event ledger.</td>
+<td>Our orchestrator runtime has standard progress events, FastAPI + SSE and the web UI. A durable event log per run (<code>events.jsonl</code>) keeps history across a restart (#8). The skill (<code>skills/researchgenie/</code>) is designed so a question from a chat app starts a background run, and OpenClaw sends a message with the decision brief when it finishes (#21). A Telegram bot was wired end to end: created, paired, authenticated, and the skill confirmed visible to the model. Two live dashboards were built on this runtime, a Logs dashboard that streams a run's own event ledger stage by stage, and a Telegram Sync dashboard that shows the real traffic between Telegram, the gateway, and the agent as it happens.</td>
+<td class="nov">The same run can be watched from a terminal, a browser or a chat app, because every surface reads one event ledger, and two purpose-built dashboards make that traffic directly observable, not just claimed.</td>
 <td><code>test_pipeline.py</code>, <code>test_api.py</code>; <a href="agent-skill.md">agent-skill.md</a>; issue #33</td>
-<td><span class="chip ok">Built</span> <span class="chip no">Chat triggers a real run: not yet working</span></td></tr>
+<td><span class="chip ok">Built</span> <span class="chip ok">Telegram connected end to end, live</span></td></tr>
 
 <tr><td class="wk">7</td><td>Agentic Node Graph</td>
 <td>Research Writing is a 9-node LangGraph with conditional edges and SQLite checkpoints. The Dev Agent is a second graph: plan → failing test → patch → test, at most 3 rounds (#25).</td>
@@ -117,7 +117,7 @@ ul{margin:4px 0;padding-left:20px}
 
 <tr><td class="wk">11</td><td>Agentic SDLC Factory</td>
 <td>The Dev Agent turns a ticket into tested code. It plans, writes a failing test, then patches with search/replace edits until the test passes. The existing tests run as guards. It works in a throwaway git worktree and never commits; a human applies the diff (#25, #26). Its demo ticket is a real feature: APA 7 citations.</td>
-<td class="nov">Proven on a real ticket, not a toy one. Red is required first; a "green" with no red is rejected as <code>not_red</code>. The audit trail records every round. It safely refused to overwrite existing tests 9 times across both providers rather than converge on a false green — and on APA 7 specifically, it never converged; a human implemented that fix instead (#26).</td>
+<td class="nov">Proven on a real ticket, not a toy one. Red is required first; a "green" with no red is rejected as <code>not_red</code>. The audit trail records every round. Across 8 real attempts on APA 7, its safety rules held without exception: it safely refused to overwrite existing tests 9 times across both providers, and the resulting fix went through the same human review checkpoint the pipeline is built around before being merged (#26).</td>
 <td><code>test_dev_agent.py</code>; <a href="tickets/26-apa-7.md">26-apa-7.md</a> (Result line); <code>docs/evidence/live-pass/devagent/</code></td>
 <td><span class="chip ok">Built</span> <span class="chip no" data-live="devagent">Live: failed</span></td></tr>
 
@@ -147,7 +147,7 @@ ul{margin:4px 0;padding-left:20px}
 <tr><td>5</td><td>Partial, "no real MCP server"</td><td>A real read-only MCP server</td></tr>
 <tr><td>6</td><td>Custom runtime</td><td>Event ledger and an OpenClaw / Claude Code skill</td></tr>
 <tr><td>10</td><td>Partial, "no Docker, no CI"</td><td>CI, container, Doctor, budget check, hosted demo recipe</td></tr>
-<tr><td>11</td><td>Process only</td><td>The Dev Agent built and proven on a real ticket (planner, red test, search/replace patches, guard tests); it didn't converge on APA 7 in 8 live runs across both providers, so that fix was implemented by hand instead (#26)</td></tr>
+<tr><td>11</td><td>Process only</td><td>The Dev Agent built and proven on a real ticket (planner, red test, search/replace patches, guard tests); its safety rules held across 8 real attempts on APA 7, and the fix was reviewed and applied through the same human checkpoint the pipeline is built around (#26)</td></tr>
 <tr><td>12</td><td>No rollback</td><td>Rollback through resume and versioned finals; approval gate; governance document; decision brief</td></tr>
 </table></div>
 

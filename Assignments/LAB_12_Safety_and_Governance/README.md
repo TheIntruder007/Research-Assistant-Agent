@@ -795,6 +795,8 @@ pytest -v tests/orchestrator/test_resume.py tests/services/test_discovery_approv
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 The approval gate, the versioned resume logic, which is implemented inside orchestrator/pipeline.py shown in full in Lab 6, and the rule built decision brief above all pass against the real implementation. `Course-Project/docs/GOVERNANCE.md` maps 6 named risks, each to a control, a test and a rollback.
 
 ## Why this is the real evidence, not a toy

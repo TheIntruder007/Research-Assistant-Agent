@@ -492,6 +492,8 @@ pytest -v tests/services/test_trend_gap_mining.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 The recurrence threshold logic above passes, a single paper's future work line never becomes a reported gap on its own. A real live advisor run produced 34 real gap statements across 3 academic fields, CS/AI/ML, ECE and Mechanical, recorded in `Course-Project/docs/evidence/live-pass/`.
 
 ## Why this is the real evidence, not a toy

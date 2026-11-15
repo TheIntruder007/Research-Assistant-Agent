@@ -1017,6 +1017,8 @@ pytest -v tests/orchestrator/test_clarify.py tests/services/test_discovery_repla
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 Every clarify and re plan test passes against the live pipeline code above. Independently, across 4 fresh full live runs recorded in `Course-Project/docs/evidence/live-pass/LIVE_PASS.md`, Discovery's loop adapted only where the evidence actually required it.
 
 ## Why this is the real evidence, not a toy

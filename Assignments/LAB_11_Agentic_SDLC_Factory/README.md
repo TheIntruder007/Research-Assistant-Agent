@@ -717,6 +717,8 @@ pytest -v tests/dev_agent/test_dev_agent.py
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 The real ticket this factory was proven against is the APA 7 citation formatting feature, tracked as issue #26 and recorded in full in `Course-Project/docs/tickets/26-apa-7.md`. Across 8 real attempts on that ticket, the Dev Agent's safety rules held without exception: it refused to overwrite the real test file every single time rather than fake a pass, and it required red before green on every attempt. The resulting fix went through the same human review checkpoint the pipeline is designed around, and was merged through a normal pull request, commit 90e44ec, PR #37, into main. The test suite above verifies that exact review discipline, refuse to overwrite tests, require red before green, never commit without review, on the real Dev Agent implementation.
 
 ## Why this is the real evidence, not a toy

@@ -1364,6 +1364,8 @@ pytest -v tests/services/test_trend_advisor_service.py tests/services/test_trend
 ```
 
 ## Real result
+Raw console output also saved as [`sample_run.txt`](./sample_run.txt) in this folder.
+
 Every curated domain above returns a non empty ranked shortlist, and two domains are shown to produce genuinely different top candidates, proving the ranking is not hard coded per field. A live CS/AI/ML advisor run picked a real rising topic and handed it directly into a full pipeline run with no human retyping anything, recorded in `Course-Project/docs/evidence/live-pass/`.
 
 ## Why this is the real evidence, not a toy
