@@ -14,10 +14,10 @@ Built under the name ResearchGenie, this is a local first agentic system that tu
 
 | # | Name | USN | Division |
 |---|------|-----|----------|
-| 1 | Ayush Kabbur | 01FE23BCI019 | B |
+| 1 | Ayush Kabbur | 01FE23BCI033 | B |
 | 2 | Owais Aminbhavi | 01FE23BCI378 | B |
 | 3 | Mohammed Sadiq Lakkundi | 01FE23BCI057 | B |
-| 4 | Md Abdul Raqeeb | 01FE23BCI033 | B |
+| 4 | Md Abdul Raqeeb | 01FE23BCI019 | B |
 
 ---
 
